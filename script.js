@@ -49,3 +49,12 @@
   );
   els.forEach((el) => io.observe(el));
 })();
+
+// Hero photo fallback: use the embedded copy until assets/marwan.jpg is added
+(function () {
+  const img = document.querySelector(".photo-card img");
+  if (!img || !window.MARWAN_PHOTO) return;
+  const useFallback = () => { if (img.src.indexOf("data:") !== 0) img.src = window.MARWAN_PHOTO; };
+  img.addEventListener("error", useFallback);
+  if (img.complete && img.naturalWidth === 0) useFallback();
+})();
